@@ -19,19 +19,11 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Navigate to ubeer directory
-        run: cd ubeer  # Change the directory to where package.json is located
-
-      - name: Install dependencies
+      - name: Install dependencies and run Playwright tests
         run: |
+          cd ubeer  # Change the directory to where package.json is located
           npm install
           npx playwright install
-
-      - name: Start the ubeer project
-        run: |
           npm run start &  # Démarre l'application en arrière-plan
           npx wait-on http://localhost:3000  # Attends que le serveur soit prêt (change le port si nécessaire)
-
-      - name: Run Playwright tests
-        run: |
           npx playwright test
