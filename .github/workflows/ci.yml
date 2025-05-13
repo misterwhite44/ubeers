@@ -17,7 +17,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Ou la version de Node.js que tu utilises
+          node-version: '16'
+
+      - name: Navigate to ubeer directory
+        run: cd ubeer  # Change the directory to where package.json is located
 
       - name: Install dependencies
         run: |
@@ -26,11 +29,8 @@ jobs:
 
       - name: Start the ubeer project
         run: |
-          # Assurez-vous de démarrer le serveur de l'application dans un processus en arrière-plan
-          npm run start &  # Utilise la commande correcte pour démarrer ton projet
-          
-          # Attends que le serveur soit disponible
-          npx wait-on http://localhost:3000  # Change l'URL si nécessaire
+          npm run start &  # Démarre l'application en arrière-plan
+          npx wait-on http://localhost:3000  # Attends que le serveur soit prêt (change le port si nécessaire)
 
       - name: Run Playwright tests
         run: |
