@@ -14,9 +14,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Playwright
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Ou la version de Node.js que tu utilises
+
+      - name: Install dependencies
         run: |
+          npm install
           npx playwright install
+
+      - name: Start the ubeer project
+        run: |
+          # Assurez-vous de démarrer le serveur de l'application dans un processus en arrière-plan
+          npm run start &  # Utilise la commande correcte pour démarrer ton projet
+          
+          # Attends que le serveur soit disponible
+          npx wait-on http://localhost:3000  # Change l'URL si nécessaire
 
       - name: Run Playwright tests
         run: |
